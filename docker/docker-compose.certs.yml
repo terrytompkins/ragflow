@@ -1,0 +1,16 @@
+# Optional: Use this file when behind a corporate proxy (e.g., Zscaler) that
+# presents custom CA certs for SSL inspection. Run:
+#   docker compose -f docker-compose.yml -f docker-compose.certs.yml up -d
+#
+# 1. Set CA_BUNDLE_HOST_PATH in .env to your company CA cert file path, e.g.:
+#    CA_BUNDLE_HOST_PATH=/path/to/your/company-zscaler-ca.pem
+# 2. Or copy your cert to docker/certs/company-ca-bundle.pem and set:
+#    CA_BUNDLE_HOST_PATH=./certs/company-ca-bundle.pem
+
+services:
+  ragflow-cpu:
+    volumes:
+      - ${CA_BUNDLE_HOST_PATH:-./certs/company-ca-bundle.pem}:/etc/ssl/certs/company-ca-bundle.pem:ro
+    environment:
+      REQUESTS_CA_BUNDLE: /etc/ssl/certs/company-ca-bundle.pem
+      SSL_CERT_FILE: /etc/ssl/certs/company-ca-bundle.pem
