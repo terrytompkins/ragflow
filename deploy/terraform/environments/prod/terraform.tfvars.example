@@ -1,0 +1,33 @@
+# -----------------------------------------------------------------------------
+# RAGFlow prod environment - Terraform variables (future use)
+# -----------------------------------------------------------------------------
+# Production configuration with larger instances and multi-AZ.
+# -----------------------------------------------------------------------------
+
+environment = "prod"
+aws_region  = "us-east-1"
+
+availability_zones   = ["us-east-1a", "us-east-1b", "us-east-1c"]
+public_subnet_cidrs  = ["10.100.1.0/24", "10.100.2.0/24", "10.100.3.0/24"]
+private_subnet_cidrs = ["10.100.10.0/24", "10.100.11.0/24", "10.100.12.0/24"]
+
+rds_instance_class    = "db.t3.medium"
+rds_allocated_storage = 50
+rds_db_name           = "rag_flow"
+rds_master_password   = "REPLACE_ME"
+
+opensearch_instance_type   = "r6g.large.search"
+opensearch_instance_count  = 2
+opensearch_ebs_volume_size = 50
+opensearch_master_password = "REPLACE_ME"
+
+elasticache_node_type   = "cache.t3.small"
+elasticache_num_nodes   = 2
+elasticache_auth_token  = "REPLACE_ME"
+
+ragflow_image_tag = "v1.0.0"
+ecs_cpu          = 2048
+ecs_memory       = 4096
+
+domain_name          = "ragflow.example.com"
+acm_certificate_arn  = "arn:aws:acm:us-east-1:ACCOUNT:certificate/CERT-ID"

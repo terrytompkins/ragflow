@@ -1,0 +1,22 @@
+# -----------------------------------------------------------------------------
+# AWS deployment add-on for service_conf.yaml.template
+# -----------------------------------------------------------------------------
+# When deploying to AWS with S3 storage, merge this s3 block into your
+# service_conf.yaml (or ensure your template includes it with env var substitution).
+# For IAM role-based auth, leave access_key and secret_key empty.
+# -----------------------------------------------------------------------------
+#
+# Add this to your service_conf.yaml (or uncomment in service_conf.yaml.template):
+#
+# s3:
+#   access_key: '${AWS_ACCESS_KEY_ID:-}'
+#   secret_key: '${AWS_SECRET_ACCESS_KEY:-}'
+#   region_name: '${AWS_REGION:-us-east-1}'
+#   endpoint_url: ''
+#   bucket: '${S3_BUCKET}'
+#   prefix_path: '${S3_PREFIX_PATH:-}'
+#   signature_version: 'v4'
+#
+# Required env vars for ECS task: S3_BUCKET, AWS_REGION (or use AWS_DEFAULT_REGION)
+# Optional: S3_PREFIX_PATH for single-bucket namespacing
+# For IAM task role: omit AWS_ACCESS_KEY_ID/AWS_SECRET_ACCESS_KEY

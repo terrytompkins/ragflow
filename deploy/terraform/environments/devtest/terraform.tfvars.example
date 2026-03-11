@@ -1,0 +1,45 @@
+# -----------------------------------------------------------------------------
+# RAGFlow devtest environment - Terraform variables
+# -----------------------------------------------------------------------------
+# Copy to terraform.tfvars and fill in the values. Never commit terraform.tfvars.
+#
+# Generate passwords with: openssl rand -hex 32
+# -----------------------------------------------------------------------------
+
+environment = "devtest"
+aws_region  = "us-east-1"
+
+# VPC - use 2 AZs for devtest (required for some services)
+availability_zones   = ["us-east-1a", "us-east-1b"]
+public_subnet_cidrs  = ["10.0.1.0/24", "10.0.2.0/24"]
+private_subnet_cidrs = ["10.0.10.0/24", "10.0.11.0/24"]
+
+# RDS MySQL
+rds_instance_class    = "db.t3.micro"
+rds_allocated_storage = 20
+rds_db_name           = "rag_flow"
+rds_master_password   = "REPLACE_WITH_STRONG_PASSWORD"
+
+# OpenSearch (single node for devtest)
+opensearch_instance_type   = "t3.small.search"
+opensearch_instance_count  = 1
+opensearch_ebs_volume_size = 10
+opensearch_master_password = "REPLACE_WITH_STRONG_PASSWORD"
+
+# ElastiCache Redis
+elasticache_node_type    = "cache.t3.micro"
+elasticache_num_nodes    = 1
+elasticache_auth_token  = "REPLACE_WITH_STRONG_TOKEN"
+
+# ECS / RAGFlow
+ragflow_image_tag = "latest"
+ecs_cpu          = 1024
+ecs_memory       = 2048
+
+# Domain / SSL - leave empty for ALB DNS only (HTTP)
+# For HTTPS: create ACM cert in us-east-1, then set:
+# domain_name         = "ragflow.example.com"
+# acm_certificate_arn = "arn:aws:acm:us-east-1:ACCOUNT:certificate/CERT-ID"
+
+domain_name          = ""
+acm_certificate_arn  = ""

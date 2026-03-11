@@ -224,3 +224,8 @@ docker/launch_backend_service_windows.sh
 bin/
 internal/cpp/cmake-build-release/
 internal/cpp/cmake-build-debug/
+
+# Terraform - never commit secrets
+deploy/terraform/environments/*/terraform.tfvars
+deploy/terraform/*.tfplan
+deploy/terraform/.terraform.lock.hcl

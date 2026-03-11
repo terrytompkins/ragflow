@@ -28,7 +28,8 @@ es:
   username: '${ES_USER:-elastic}'
   password: '${ELASTIC_PASSWORD:-infini_rag_flow}'
 os:
-  hosts: 'http://${OS_HOST:-opensearch01}:9201'
+  # For AWS OpenSearch, set OS_HOSTS to full URL (e.g. https://xxx.us-east-1.es.amazonaws.com)
+  hosts: '${OS_HOSTS:-http://${OS_HOST:-opensearch01}:9201}'
   username: '${OS_USER:-admin}'
   password: '${OPENSEARCH_PASSWORD:-infini_rag_flow_OS_01}'
 infinity:
@@ -69,15 +70,15 @@ user_default_llm:
 #   port: 5432
 #   max_connections: 100
 #   stale_timeout: 30
-# s3:
-#   access_key: 'access_key'
-#   secret_key: 'secret_key'
-#   region: 'region'
-#   endpoint_url: 'endpoint_url'
-#   bucket: 'bucket'
-#   prefix_path: 'prefix_path'
-#   signature_version: 'v4'
-#   addressing_style: 'path'
+# S3 config (when STORAGE_IMPL=AWS_S3). Omit access_key/secret_key for IAM role.
+s3:
+  access_key: '${AWS_ACCESS_KEY_ID:-}'
+  secret_key: '${AWS_SECRET_ACCESS_KEY:-}'
+  region_name: '${AWS_REGION:-us-east-1}'
+  endpoint_url: ''
+  bucket: '${S3_BUCKET}'
+  prefix_path: '${S3_PREFIX_PATH:-}'
+  signature_version: 'v4'
 # oss:
 #   access_key: '${ACCESS_KEY}'
 #   secret_key: '${SECRET_KEY}'
